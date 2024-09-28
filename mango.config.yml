@@ -1,0 +1,28 @@
+storages:
+  -
+    handle: "lt-gdrive"
+    name: "Laurence's Google Drive"
+    type: googledrive # dropbox | onedrive | s3 | ftp | smb | http | webdav
+    auth:
+      apiKey: "123"
+
+databases:
+  -
+    handle: "mongo-test-db"
+    type: mongodb # mysql | postgre
+    auth:
+      type: "blabla"
+
+jobs:
+  -
+    name: "Biebrich bewegt backup"
+    cron: "*/1 * * * *"
+    dump:
+      -
+        from: "mongo-test-db"
+        to: "lt-gdrive"
+    backup:
+      - path: /uploads
+        tar: true
+        gzip: true
+        to: "lt-gdrive"
