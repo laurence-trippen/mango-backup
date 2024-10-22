@@ -20,7 +20,7 @@ const getVersion = () => {
   });
 };
 
-const runDump = (database, outputPath) => {
+const runDump = (database: string, outputPath: string) => {
   // TODO: Validate database and outputpath inputs
 
   const child = spawn("ls", ["-l", "node_modules"]);

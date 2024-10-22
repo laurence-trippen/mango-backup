@@ -28,7 +28,7 @@ export const readConfig = async () => {
   console.log(ymlResult);
 }
 
-export const validateConfig = (config) => {
+export const validateConfig = (config: string) => {
   if (!config) return false;
 
   

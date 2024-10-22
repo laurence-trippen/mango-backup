@@ -1,12 +1,8 @@
 import fs, { constants } from "fs/promises";
 import path from "path";
 
-/**
- * 
- * @param {string} path 
- * @returns 
- */
-export const fileExists = (path) => {
+
+export const fileExists = (path: string) => {
   return new Promise((resolve) => {
     fs.access(path, constants.F_OK).then(() => {
       resolve(true);
@@ -16,12 +12,8 @@ export const fileExists = (path) => {
   });
 };
 
-/**
- * 
- * @param {string} filePath
- * @returns {boolean} File exists
- */
-export const fileExistsCaseSensitive = async (filePath) => {
+
+export const fileExistsCaseSensitive = async (filePath: string): Promise<boolean> => {
   if (!filePath)
     throw new Error("File path not set!");
 
@@ -48,35 +40,32 @@ export const fileExistsCaseSensitive = async (filePath) => {
   }
 };
 
-/**
- * @param {string} exe executable name (without extension if on Windows)
- * @return {Promise<string|null>} executable path if found
- * */
-export const findExecutable = async (exe) => {
+
+export const findExecutable = async (exe: string): Promise<string | null> => {
   const envPath = process.env.PATH || "";
   const envExt = process.env.PATHEXT || "";
 
   const pathDirs = envPath
-      .replace(/["]+/g, "")
-      .split(path.delimiter)
-      .filter(Boolean);
+    .replace(/["]+/g, "")
+    .split(path.delimiter)
+    .filter(Boolean);
 
   const extensions = envExt.split(";");
   const candidates = pathDirs.flatMap((d) =>
-      extensions.map((ext) => path.join(d, exe + ext))
+    extensions.map((ext) => path.join(d, exe + ext))
   );
 
   try {
-      return await Promise.any(candidates.map(checkFileExists));
+    return await Promise.any(candidates.map(checkFileExists));
   } catch (e) {
-      return null;
+    return null;
   }
 
-  async function checkFileExists(filePath) {
+  async function checkFileExists(filePath: string): Promise<string> {
     if ((await fs.stat(filePath)).isFile()) {
-        return filePath;
+      return filePath;
     }
-    
+
     throw new Error("Not a file");
   }
 }

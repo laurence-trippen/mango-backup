@@ -4,7 +4,7 @@
 import { readConfig } from "./config/config.js";
 import { getMongoDump } from "./db/mongodump.js";
 
-const main = async () => {
+async function main() {
   readConfig();
 
   try {
@@ -15,7 +15,7 @@ const main = async () => {
     console.log(`Found MongoDump: ${mongoDumpPath}`);
     console.log(version);
 
-    mongoDump.runDump();
+    // mongoDump.runDump("", "");
   } catch (e) {
     console.log("Error with mongodump:");
     console.log(e);
