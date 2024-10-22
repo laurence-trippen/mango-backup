@@ -25,7 +25,7 @@ export const readConfig = async () => {
 
   const ymlResult = yaml.parse(contents);
 
-  // console.log(ymlResult);
+  console.log(ymlResult);
 }
 
 export const validateConfig = (config) => {
